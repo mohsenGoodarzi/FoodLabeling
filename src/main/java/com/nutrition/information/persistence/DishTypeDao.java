@@ -18,7 +18,7 @@ public interface DishTypeDao extends JpaRepository<DishType,String>{
 	@Query("from DishType")
 	public List<DishType> getAllDishTypes();
 	
-	@Query("from DishType where DishTypeId = :dishTypeId")
+	@Query("from DishType where dishTypeId = :dishTypeId")
 	public DishType getDishType(@Param("dishTypeId") String dishTypeId);
 	
 	@Transactional

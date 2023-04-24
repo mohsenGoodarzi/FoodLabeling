@@ -17,8 +17,8 @@ public interface IngredientTypeDao extends JpaRepository<IngredientType, String>
 	@Query("from IngredientType")
 	public List<IngredientType> getAllIngredientTypes();
 	
-	@Query("from IngredientType where IngredientTypeId = :ingredientType")
-	public IngredientType getIngredientType(@Param("ingredientType") String ingredientType);
+	@Query("from IngredientType where ingredientTypeId = :ingredientTypeId")
+	public IngredientType getIngredientType(@Param("ingredientTypeId") String ingredientTypeId);
 	
 	@Transactional
 	@Modifying
