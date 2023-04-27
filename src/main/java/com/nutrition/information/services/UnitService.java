@@ -8,7 +8,7 @@ public interface UnitService {
 
 	public Unit getUnit(String unitId);
 	public List<Unit> getAllUnits();
-	public TransactionResult add(Unit unit);
+	public void add(Unit unit)throws Exception;
 	public TransactionResult edit(Unit unit);
 	public TransactionResult remove(String unitId);
 	

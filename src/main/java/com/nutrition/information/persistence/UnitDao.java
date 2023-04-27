@@ -33,7 +33,7 @@ public interface UnitDao extends JpaRepository<Unit, String> {
 	@Transactional
 	@Modifying // Modifying only can return void or integer. Hence remove(String unitId) can return integer or void
 	@Query("delete from Unit where unitId = :id") 
-	public int delete(@Param("id")String unitId);
+	public int delete(@Param("id")String id);
 	
 	@Transactional
 	@Modifying

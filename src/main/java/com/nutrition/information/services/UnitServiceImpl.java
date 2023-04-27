@@ -7,6 +7,7 @@ import com.nutrition.information.entities.Unit;
 import com.nutrition.information.helper.TransactionResult;
 import com.nutrition.information.persistence.UnitDao;
 
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -28,15 +29,14 @@ public class UnitServiceImpl  implements UnitService {
 	}
 
 	@Override
-	public TransactionResult add(Unit unit) {
-		
-		int result = unitDao.insert(unit.getUnitId(),unit.getToGram());
-		
-		if (result > 0) {
+	public void add(Unit unit) throws Exception{
+		try {
+			 unitDao.insert(unit.getUnitId(),unit.getToGram());
 			
-			return TransactionResult.SUCCEED;
 		}
-		return TransactionResult.FAILD;
+		catch(JDBCException e) {
+			throw new Exception("Operation Failed");
+		}
 	}
 
 	@Override
