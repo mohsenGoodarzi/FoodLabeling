@@ -1,5 +1,6 @@
 package com.nutrition.information.services;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nutrition.information.entities.Warning;
-import com.nutrition.information.helper.NotFoundException;
 import com.nutrition.information.helper.TransactionResult;
 import com.nutrition.information.persistence.WarningDao;
 
@@ -22,33 +22,30 @@ public class WarningServiceImp implements WarningService {
 	}
 
 	@Override
-	public Warning getWarning(String warningId) throws NotFoundException {
+	public Warning getWarning(String warningId)  {
 		
 		 Optional<Warning> warning = warningDao.findById(warningId);
 		 if (warning.isEmpty()) {
-			 throw new NotFoundException("not found");
+			 return null;
 		 }
 		 return warning.get();
 	}
 
 	@Override
-	public TransactionResult add(Warning warning) {
+	public TransactionResult add(Warning warning) throws SQLException {
+		
 		if (warning != null ) {
-			
 			int result = warningDao.insert(warning.getWarningId(),warning.getWarningType(), warning.getMessage());
-			
 			if (result >0 ) {
 				
 				return TransactionResult.SUCCEED; 
 			}
-		}
-		
-		return TransactionResult.FAILD;
-		
+		}		
+		return TransactionResult.FAILD;	
 	}
 
 	@Override
-	public TransactionResult edit(Warning warning) {
+	public TransactionResult edit(Warning warning) throws SQLException{
 		int result = warningDao.update(warning.getWarningId(),warning.getWarningType(),warning.getMessage());
 		if (result>0) {
 			

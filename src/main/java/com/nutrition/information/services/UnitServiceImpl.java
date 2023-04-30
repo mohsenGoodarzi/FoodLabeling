@@ -1,5 +1,6 @@
 package com.nutrition.information.services;
 
+import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -30,17 +31,11 @@ public class UnitServiceImpl  implements UnitService {
 
 	@Override
 	public void add(Unit unit) throws Exception{
-		try {
-			 unitDao.insert(unit.getUnitId(),unit.getToGram());
-			
-		}
-		catch(JDBCException e) {
-			throw new Exception("Operation Failed");
-		}
+		unitDao.insert(unit.getUnitId(),unit.getToGram());
 	}
 
 	@Override
-	public TransactionResult edit(Unit unit) {
+	public TransactionResult edit(Unit unit) throws Exception {
 		
 		int result = unitDao.update(unit.getUnitId(),unit.getToGram());
 		

@@ -1,0 +1,35 @@
+<!DOCTYPE html >
+<html xmlsns:th="https://thymeleaf.org">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+<h1>Dish Type</h1>
+
+
+<div class = "container">
+<form action="#" th:action="@{/DishTypes/Create}" method="post" th:object="${dishType}" >
+
+<div class="input-group mb-3">
+  <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+  <input type="text" th:field="*{dishTypeId}" class="form-control" aria-label="Please enter a unit name" aria-describedby="inputGroup-dish-type">
+ <span th:if="${#fields.hasErrors('dishTypeId')}" th:errors="*{dishTypeId}"></span>
+</div>
+<div class="input-group mb-3">
+  <span class="input-group-text" id="inputGroup-sizing-default">Member</span>
+  <input type="text" th:field="*{member}" class="form-control" aria-label="Please enter in grams" aria-describedby="inputGroup-in-gram"/>
+  <span th:if="${#fields.hasErrors('member')}" th:errors="*{member}"></span>
+</div>
+
+
+
+<button type="submit" class="btn btn-primary">Create</button>
+
+</form>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>

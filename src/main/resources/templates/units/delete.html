@@ -8,20 +8,18 @@
 <body>
 <h1>Units</h1>
 
-
+<!-- @{/Units/Delete/{unitId}(unitId = ${unit.unitId})}  -->
 <div class = "container">
-<form action="#" th:action="@{/Units/Delete}" method="post" th:object="${unit}" >
+<form action="#" th:action="@{/Units/Delete/{unitId}(unitId = ${unit.unitId})}" method="post" th:object="${unit}">
 
 <div class="input-group mb-3">
   <span class="input-group-text" id="inputGroup-sizing-default">Unit Name</span>
   <input type="text" th:field="*{unitId}" class="form-control" aria-label="Please enter a unit name" aria-describedby="inputGroup-unit-name" disabled>
- <span th:if="${#fields.hasErrors('unitId')}" th:errors="*{unitId}">Email</span>
 </div>
 
 <div class="input-group mb-3">
   <span class="input-group-text" id="inputGroup-sizing-default">In Grams</span>
   <input type="text" th:field="*{toGram}" class="form-control" aria-label="Please enter in grams" aria-describedby="inputGroup-in-gram" disabled/>
-  <span th:if="${#fields.hasErrors('toGram')}" th:errors="*{toGram}">Email</span>
 </div>
 <button type="submit" class="btn btn-primary">Delete</button>
 

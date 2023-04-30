@@ -2,117 +2,112 @@ package com.nutrition.information.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.nutrition.information.entities.Unit;
 import com.nutrition.information.services.UnitService;
 
 @Controller
+@RequestMapping("/Units")
 public class UnitController {
 	@Autowired
 	private UnitService unitService;
 
-	@GetMapping("/Units")
-	public ModelAndView allUnits() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("units", unitService.getAllUnits());
-		modelAndView.setViewName("/units/All.html");
+	@GetMapping({"/","All"})
+	public ModelAndView all() {
+		ModelAndView modelAndView = new ModelAndView("/units/All.html","units", unitService.getAllUnits());
 		return modelAndView;
 	}
 
-	@GetMapping("/Units/Create")
+	@GetMapping("Create")
 	public ModelAndView create() {
-		ModelAndView modelAndView = new ModelAndView();
 		Unit unit = new Unit();
-		modelAndView.addObject(unit);
-		modelAndView.setViewName("/units/Create.html");
+		ModelAndView modelAndView = new ModelAndView("/units/Create.html","unit",unit);
+
 		return modelAndView;
 	}
 
-	@PostMapping("/Units/Create")
-	public ModelAndView create(@ModelAttribute("unitId") String unitId, @ModelAttribute("toGram") double toGram, RedirectAttributes redirectAttributes) {
+	@PostMapping("Create")
+	public ModelAndView create(@ModelAttribute("unit") Unit unit, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			unitService.add(new Unit(unitId, toGram));
+			unitService.add(unit);
 		} catch (Exception e) {
-
-			//modelAndView.addObject("Error",new Error(e.getMessage()));
-			// forward lets you to make post request to an end point
-			redirectAttributes.addFlashAttribute("Error", new Error(e.getMessage()));
-			modelAndView.setViewName("redirect:/Errors");
+			//either log or use actuator here and don't give away the error
+			redirectAttributes.addFlashAttribute("error",e.getMessage());
+			modelAndView.setViewName("redirect:/Error");
 			return modelAndView ;
 		}
-
-		modelAndView.setViewName("redirect:/Units");
+		
+		modelAndView.setViewName("redirect:/Units/");
 		return modelAndView;
 	}
-	@GetMapping("/Units/Edit/{unitId}")
-	public ModelAndView edit(@ModelAttribute("unitId") String unitId) {
+	@GetMapping("Edit/{unitId}")
+	public ModelAndView edit(@PathVariable("unitId") String unitId, RedirectAttributes redirectAttributes ) {
 		ModelAndView modelAndView = new ModelAndView();
 		Unit unit = unitService.getUnit(unitId);
+		if (unit==null) {
+			//either log or use actuator here and don't give away the error
+			redirectAttributes.addFlashAttribute("error","Not Found");
+			modelAndView.setViewName("redirect:/Error");
+			return modelAndView ;
+		}
 		modelAndView.addObject(unit);
 		modelAndView.setViewName("/units/Edit.html");
 		return modelAndView;
 	}
 
-	@PostMapping("/Units/Edit")
-	public ModelAndView edit(@ModelAttribute("unitId") String unitId, @ModelAttribute("toGram") double toGram, RedirectAttributes redirectAttributes) {
+	@PostMapping("Edit")
+	public ModelAndView edit(@ModelAttribute("unit") Unit unit, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			Unit unit = unitService.getUnit(unitId);
-			
-			unit.setToGram(toGram);
 			unitService.edit(unit);
 		} catch (Exception e) {
 
-			 modelAndView.addObject("Error",new Error(e.getMessage()));
-			// forward lets you to make post request to an end point
-			
-			//redirectAttributes.addFlashAttribute("Error", new Error(e.getMessage()));
-			 modelAndView.setViewName("redirect:/Errors");
-			return modelAndView;
+			//either log or use actuator here and don't give away the error
+			redirectAttributes.addFlashAttribute("error",e.getMessage());
+			modelAndView.setViewName("redirect:/Error");
+			return modelAndView ;
 		}
 
-		modelAndView.setViewName("redirect:/Units");
+		modelAndView.setViewName("redirect:/Units/");
 		return modelAndView;
 	}
-	@GetMapping("/Units/Delete/{unitId}")
-	public ModelAndView delete(@ModelAttribute("unitId") String unitId) {
+	@GetMapping("Delete/{unitId}")
+	public ModelAndView delete(@PathVariable("unitId") String unitId, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		Unit unit = unitService.getUnit(unitId);
-		modelAndView.addObject(unit);
+		if (unit==null) {
+			//either log or use actuator here and don't give away the error
+			redirectAttributes.addFlashAttribute("error","Not Found");
+			modelAndView.setViewName("redirect:/Error");
+			return modelAndView ;
+		}
+		modelAndView.addObject("unit",unit);
 		modelAndView.setViewName("/units/delete.html");
 		return modelAndView;
 	}
-
-	@PostMapping("/Units/Delete")
-	public ModelAndView delete(@ModelAttribute("unitId") String unitId, @ModelAttribute("toGram") double toGram) {
+// improvement required. This should become similar to Edit 
+	@PostMapping("Delete/{unitId}") 
+	public ModelAndView deleteConfirmed(@ModelAttribute("unit") Unit unit) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			System.out.println("Removing the unit Id  "+ unitId);
-			unitService.remove(unitId);
+			System.out.println("Removing the unit Id  "+ unit.getUnitId());
+			unitService.remove(unit.getUnitId());
 		} catch (Exception e) {
 
 			modelAndView.addObject(new Error(e.getMessage()));
 			// forward lets you to make post request to an end point
-			modelAndView.setViewName("forward:/Errors");
+			modelAndView.setViewName("redirect:/Errors");
 			return modelAndView;
 		}
 
-		modelAndView.setViewName("redirect:/Units");
-		return modelAndView;
-	}
-	@GetMapping("/Errors")
-	public ModelAndView error(@ModelAttribute Error error) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("error", error.getMessage());
-		System.out.println("Error: " + error.getMessage());
-		modelAndView.setViewName("/errors/of.html");
+		modelAndView.setViewName("redirect:/Units/");
 		return modelAndView;
 	}
 }
