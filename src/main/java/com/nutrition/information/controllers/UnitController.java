@@ -9,18 +9,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.nutrition.information.entities.ErrorView;
 import com.nutrition.information.entities.Unit;
+import com.nutrition.information.helper.HttpHelper;
 import com.nutrition.information.services.UnitService;
 
 @Controller
 @RequestMapping("/Units")
 public class UnitController {
+	
 	@Autowired
 	private UnitService unitService;
+	@Autowired
+	private HttpHelper httpHelper;
 
-	@GetMapping({"/","All"})
+	@GetMapping({"All"})
 	public ModelAndView all() {
-		ModelAndView modelAndView = new ModelAndView("/units/All.html","units", unitService.getAllUnits());
+		ModelAndView modelAndView = new ModelAndView("/units/list.html","units", unitService.getAllUnits());
 		return modelAndView;
 	}
 
@@ -38,12 +44,8 @@ public class UnitController {
 		try {
 			unitService.add(unit);
 		} catch (Exception e) {
-			//either log or use actuator here and don't give away the error
-			redirectAttributes.addFlashAttribute("error",e.getMessage());
-			modelAndView.setViewName("redirect:/Error");
-			return modelAndView ;
-		}
-		
+			return httpHelper.redirect(new ErrorView(403,"Forbidden"," Attempting a prohibited action creating a duplicate record where only one is allowed"),modelAndView,redirectAttributes);
+			}
 		modelAndView.setViewName("redirect:/Units/");
 		return modelAndView;
 	}
@@ -53,10 +55,8 @@ public class UnitController {
 		Unit unit = unitService.getUnit(unitId);
 		if (unit==null) {
 			//either log or use actuator here and don't give away the error
-			redirectAttributes.addFlashAttribute("error","Not Found");
-			modelAndView.setViewName("redirect:/Error");
-			return modelAndView ;
-		}
+			return httpHelper.redirect(new ErrorView(404,"Not Found","Cannot find the warning record."),modelAndView, redirectAttributes);
+			}
 		modelAndView.addObject(unit);
 		modelAndView.setViewName("/units/Edit.html");
 		return modelAndView;
@@ -66,11 +66,16 @@ public class UnitController {
 	public ModelAndView edit(@ModelAttribute("unit") Unit unit, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			unitService.edit(unit);
+			int result = unitService.edit(unit);
+			if (result == 0) {
+				redirectAttributes.addFlashAttribute("error",new ErrorView(404,"Operation failed","try again"));
+				modelAndView.setViewName("redirect:/Error");
+				return modelAndView ;
+			}
 		} catch (Exception e) {
 
 			//either log or use actuator here and don't give away the error
-			redirectAttributes.addFlashAttribute("error",e.getMessage());
+			redirectAttributes.addFlashAttribute("error",new ErrorView(404,"Operation failed","try again"));
 			modelAndView.setViewName("redirect:/Error");
 			return modelAndView ;
 		}
@@ -84,7 +89,7 @@ public class UnitController {
 		Unit unit = unitService.getUnit(unitId);
 		if (unit==null) {
 			//either log or use actuator here and don't give away the error
-			redirectAttributes.addFlashAttribute("error","Not Found");
+			redirectAttributes.addFlashAttribute("error",new ErrorView(404,"Not Found","try again"));
 			modelAndView.setViewName("redirect:/Error");
 			return modelAndView ;
 		}
@@ -92,21 +97,17 @@ public class UnitController {
 		modelAndView.setViewName("/units/delete.html");
 		return modelAndView;
 	}
-// improvement required. This should become similar to Edit 
 	@PostMapping("Delete/{unitId}") 
-	public ModelAndView deleteConfirmed(@ModelAttribute("unit") Unit unit) {
+	public ModelAndView deleteConfirmed(@ModelAttribute("unitId") String unitId, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			System.out.println("Removing the unit Id  "+ unit.getUnitId());
-			unitService.remove(unit.getUnitId());
+			System.out.println("Removing the unit Id  "+ unitId);
+			unitService.remove(unitId);
 		} catch (Exception e) {
-
-			modelAndView.addObject(new Error(e.getMessage()));
-			// forward lets you to make post request to an end point
-			modelAndView.setViewName("redirect:/Errors");
+			redirectAttributes.addFlashAttribute("error",new ErrorView(404,"Operation failed","try again"));
+			modelAndView.setViewName("redirect:/Error");
 			return modelAndView;
 		}
-
 		modelAndView.setViewName("redirect:/Units/");
 		return modelAndView;
 	}

@@ -20,12 +20,12 @@ public class FoodIngredientId implements Serializable{
 	@Getter
 	@Setter
 	@ManyToOne(cascade = CascadeType.ALL,  targetEntity = Food.class)
-	@JoinColumn(name="foodId",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
+	@JoinColumn(name="food_id",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
 	private Food foodId;
 	@Getter
 	@Setter
 	@ManyToOne(cascade = CascadeType.ALL,  targetEntity = Ingredient.class)
-	@JoinColumn(name="ingredientId",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
+	@JoinColumn(name="ingredient_id",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
 	private Ingredient ingredientId;
 	
 }

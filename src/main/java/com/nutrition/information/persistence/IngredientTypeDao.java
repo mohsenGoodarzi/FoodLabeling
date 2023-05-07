@@ -14,24 +14,24 @@ import com.nutrition.information.entities.IngredientType;
 @Persistent
 public interface IngredientTypeDao extends JpaRepository<IngredientType, String> {
 
-	@Query("from IngredientType")
+	@Query(value="from ingredient_type", nativeQuery = true )
 	public List<IngredientType> getAllIngredientTypes();
 	
-	@Query("from IngredientType where ingredientTypeId = :ingredientTypeId")
+	@Query(value="from ingredient_type where ingredient_type_id = :ingredientTypeId", nativeQuery = true)
 	public IngredientType getIngredientType(@Param("ingredientTypeId") String ingredientTypeId);
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into IngredientType (ingredientTypeId,member)values(:ingredientTypeId,:member)",nativeQuery = true)
+	@Query(value = "insert into ingredient_type (ingredient_type_id,member)values(:ingredientTypeId,:member)",nativeQuery = true)
 	public int create(@Param("ingredientTypeId")String ingredientTypeId, @Param("member")String member);
 	
 	@Transactional
 	@Modifying
-	@Query(value="Update IngredientType set member = :member where ingredientTypeId = :ingredientTypeId", nativeQuery = true)
+	@Query(value="Update ingredient_type set member = :member where ingredient_type_id = :ingredientTypeId", nativeQuery = true)
 	public int update(@Param("ingredientTypeId") String cuisineTypeId,@Param("member") String member);  
 	
 	@Transactional
 	@Modifying
-	@Query(value = "delete from IngredientType where ingredientTypeId = :ingredientTypeId", nativeQuery = true)
+	@Query(value = "delete from ingredient_type where ingredient_type_id = :ingredientTypeId", nativeQuery = true)
 	public int delete(@Param("ingredientTypeId") String ingredientTypeId);
 }

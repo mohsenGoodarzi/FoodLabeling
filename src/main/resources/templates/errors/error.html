@@ -6,6 +6,11 @@
 </head>
 <body>
 <h1>Failed</h1>
-<h3 th:text="${error}">Here is the error</h3>
+<div >
+<h3 th:text="${error.status}"></h3>
+<h3 th:text="${error.type}"></h3>
+<h3 th:text="${error.message}"></h3>
+</div>
+
 </body>
 </html>

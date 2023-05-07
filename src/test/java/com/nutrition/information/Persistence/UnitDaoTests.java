@@ -1,6 +1,9 @@
-package com.nutrition.information;
+package com.nutrition.information.Persistence;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +27,26 @@ class UnitDaoTests {
 	
 	@BeforeEach
 	void setup() {
-		unitDao.insert("Test Unit", 1.3);
+		unitDao.insert("Test Unit 1", 1.3);
+		unitDao.insert("Test Unit 2", 1.4);
+		
 	}
+	@Test
+	void getAllUnitsTest() {
+		List<Unit> got = unitDao.getAllUnits();
+		List<Unit> expected = new ArrayList<Unit>();
+		expected.add(new Unit("Test Unit 1",1.3));
+		expected.add(new Unit("Test Unit 2", 1.4));
+		assertArrayEquals(expected.toArray(), got.toArray());
+	}
+	
+	@Test
+	void getUnitTest() {
+		Unit got = unitDao.getUnit("Test Unit 1");
+		Unit expected = new Unit("Test Unit 1",1.3);
+		assertEquals(expected, got);
+	}
+	
 	
 	@Test
 	void remove() {

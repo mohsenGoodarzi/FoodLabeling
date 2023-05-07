@@ -11,9 +11,9 @@ public interface WarningService {
 	
 	public List<Warning> getAll();
 	public Warning getWarning(String warningId);
-	public TransactionResult add(Warning warning)throws SQLException ;
-	public TransactionResult edit(Warning warning)throws SQLException ;
-	public TransactionResult remove(String warningId);
+	public int add(Warning warning)throws SQLException ;
+	public int edit(Warning warning)throws SQLException ;
+	public int remove(String warningId);
 	
 
 }

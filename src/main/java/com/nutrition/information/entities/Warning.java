@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name =  "Warning")
+@Table(name = "warning")
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,12 +21,12 @@ public class Warning implements Comparable<Warning> {
 	@Getter
 	@Setter
 	@Id
-	@Column(columnDefinition = "nvarchar(100)")
+	@Column(name="warning_id", columnDefinition = "nvarchar(100)")
 	private String warningId;
 	
 	@Getter
 	@Setter
-	@Column(columnDefinition = "nvarchar(100) not null check (warningType in ('Not Specified' ,'Allergic','Children Attention'))", name = "warningType")
+	@Column(columnDefinition = "nvarchar(100) not null check (warning_type in ('Not Specified' ,'Allergic','Children Attention'))", name = "warning_type")
 	private String warningType;
 	
 	@Getter

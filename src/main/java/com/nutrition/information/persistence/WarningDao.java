@@ -16,27 +16,27 @@ import com.nutrition.information.entities.Warning;
 public interface WarningDao extends JpaRepository<Warning, String> {
 	
 	
-	@Query(value = "from Warning where warningId = :warningId")
+	@Query(value = "from warning where warning_id = :warningId",nativeQuery = true)
 	public Warning getWarning(String warningId);
 	
-	@Query(value="from Warning")
+	@Query(value="from warning", nativeQuery = true)
 	public List<Warning> getAllWarnings();
 	
 	@Transactional
 	@Modifying
-	@Query(value="Insert into Warning(warningId,warningType, message) values(:warningId, :warningType, :message)",nativeQuery=true )
+	@Query(value="Insert into warning(warning_id,warning_type, message) values(:warningId, :warningType, :message)",nativeQuery=true )
 	public int insert(@Param("warningId")String warningId,@Param("warningType") String warningType,@Param("message") String message); 
 	
 
 	@Transactional
 	@Modifying
-	@Query(value="update Warning set warningType = :warningType, message = :message where warningId= :warningId",nativeQuery=true )
+	@Query(value="update warning set warning_type = :warningType, message = :message where warning_id= :warningId",nativeQuery=true )
 	public int update(@Param("warningId")String warningId,@Param("warningType") String warningType,@Param("message") String message); 
 
 
 	@Transactional
 	@Modifying
-	@Query(value="delete from Warning where warningId = :warningId",nativeQuery=true )
+	@Query(value="delete from warning where warning_id = :warningId",nativeQuery=true )
 	public int delete(@Param("warningId")String warningId); 
 
 }

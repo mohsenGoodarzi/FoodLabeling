@@ -2,9 +2,10 @@ package com.nutrition.information.entities;
 
 import java.util.function.Predicate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name="unit")
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,9 +24,11 @@ public class Unit implements Comparable<Unit>, Predicate<Unit>{
 	@Getter
 	@Setter
 	@Id
+	@Column(name="unit_id")
 	private String unitId;
 	@Getter
 	@Setter
+	@Column(name="to_gram")
 	private double toGram;
 	@Override
 	public int compareTo(Unit o) {

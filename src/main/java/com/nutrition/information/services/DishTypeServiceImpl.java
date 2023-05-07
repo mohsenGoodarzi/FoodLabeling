@@ -22,16 +22,16 @@ public class DishTypeServiceImpl implements DishTypeService {
 		return dishTypeDao.getDishType(dishType);
 	}
 	
-	public void add(DishType dishType) throws Exception{
-		dishTypeDao.insert(dishType.getDishTypeId(), dishType.getMember().getDishTypeId());
+	public int add(DishType dishType) throws Exception{
+		return dishTypeDao.insert(dishType.getDishTypeId(), dishType.getMember().getDishTypeId());
 	}
 	
-	public void edit(DishType dishType) throws Exception{
-		dishTypeDao.update(dishType.getDishTypeId(), dishType.getMember().getDishTypeId());
+	public int edit(DishType dishType) throws Exception{
+		return dishTypeDao.update(dishType.getDishTypeId(), dishType.getMember().getDishTypeId());
 	}
 	
-	public void remove(DishType dishType) throws Exception{
-		dishTypeDao.delete(dishType.getDishTypeId()); 
+	public int remove(DishType dishType) throws Exception{
+		return dishTypeDao.delete(dishType.getDishTypeId()); 
 	}
 	
 

@@ -3,10 +3,8 @@ package com.nutrition.information.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +23,7 @@ public class FoodIngredientView {
 	@Getter
 	@Setter
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Unit.class)
-	@JoinColumn(name="unitId",columnDefinition="varchar(100) default 'Not Specified'" ,nullable = false)
+	@JoinColumn(name="unit_id",columnDefinition="varchar(100) default 'Not Specified'" ,nullable = false)
 	private Unit unitId;
 	@Getter
 	@Setter

@@ -1,14 +1,10 @@
 package com.nutrition.information.services;
 
-import java.sql.SQLException;
+
 import java.util.List;
 import org.springframework.stereotype.Service;
-
 import com.nutrition.information.entities.Unit;
-import com.nutrition.information.helper.TransactionResult;
 import com.nutrition.information.persistence.UnitDao;
-
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -30,30 +26,22 @@ public class UnitServiceImpl  implements UnitService {
 	}
 
 	@Override
-	public void add(Unit unit) throws Exception{
-		unitDao.insert(unit.getUnitId(),unit.getToGram());
+	public int add(Unit unit) throws Exception{
+		return unitDao.insert(unit.getUnitId(),unit.getToGram());
 	}
 
 	@Override
-	public TransactionResult edit(Unit unit) throws Exception {
+	public int edit(Unit unit) throws Exception {
 		
 		int result = unitDao.update(unit.getUnitId(),unit.getToGram());
+		return result;
 		
-		if (result > 0) {
-			
-			return TransactionResult.SUCCEED;
-		}
-		return TransactionResult.FAILD;
 	}
 
 	@Override
-	public TransactionResult remove(String unitId) {
+	public int remove(String unitId) throws Exception {
 		int result = unitDao.delete(unitId);
-		if (result > 0) {
-			
-			return TransactionResult.SUCCEED;
-		}
-		return TransactionResult.FAILD;
+		return result;
 	}
 
 }
