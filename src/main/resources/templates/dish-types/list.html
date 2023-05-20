@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html xmlsns:th="https://thymleaf.org">
+<html xmlns:th="http://thymleaf.org">
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
-
+<form action="#" th:action="@{/logout}" method="POST">
+	<input type="submit" value="Log Out"/>
+</form>
 <div class = "container">
 <table class="table table-primary table-striped">
 <thead>
+
 <tr>
 <th>Dish Type</th>
 <th>Member</th>
 </tr>
 </thead>
 <tbody>
+
 <tr th:each="dishType:${dishTypes}">
 
 <td th:text="${dishType.dishTypeId}"></td>

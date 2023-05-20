@@ -14,34 +14,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nutrition.information.entities.CuisineType;
 
-/**
- * @author Mohsen Goodarzi
- *
- */
 @Repository
 public interface CuisineTypeDao extends JpaRepository<CuisineType, String>{
 	
 	
 	
-	@Query(value="from cuisine_type",nativeQuery = true)
+	@Query(value="from CuisineType")
 	public List<CuisineType> getAllCuisineTypes();
 	
-	@Query(value="from cuisine_type where cuisine_type_id = :cuisineTypeId", nativeQuery = true)
+	@Query(value="from CuisineType where cuisineTypeId = :cuisineTypeId")
 	public CuisineType getCuisineType(@Param("cuisineTypeId") String cuisineTypeId);
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into cuisine_type (cuisine_type_id,member)values(:cuisineTypeId,:member)",nativeQuery = true)
+	@Query(value = "insert into CuisineType(cuisineTypeId,member)values(:cuisineTypeId,:member)", nativeQuery = true)
 	public int insert(@Param("cuisineTypeId")String cuisineTypeId, @Param("member")String member);
 	
 	@Transactional
 	@Modifying
-	@Query(value="update cuisine_type set member = :member where cuisine_type_id = :cuisineTypeId", nativeQuery = true)
+	@Query(value="update CuisineType set member = :member where cuisineTypeId = :cuisineTypeId")
 	public int update(@Param("cuisineTypeId") String cuisineTypeId,@Param("member") CuisineType member);  
 	
 	@Transactional
 	@Modifying
-	@Query(value = "delete from cuisine_type where cuisine_type_id = :cuisineTypeId", nativeQuery = true)
+	@Query(value = "delete from CuisineType where cuisineTypeId = :cuisineTypeId", nativeQuery = true)
 	public int delete(@Param("cuisineTypeId") String cuisineTypeId);
 
 }

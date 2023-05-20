@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Unit implements Comparable<Unit>, Predicate<Unit>{
+public class Unit {
 	
 	@Getter
 	@Setter
@@ -30,21 +30,7 @@ public class Unit implements Comparable<Unit>, Predicate<Unit>{
 	@Setter
 	@Column(name="to_gram")
 	private double toGram;
-	@Override
-	public int compareTo(Unit o) {
-		
-		return this.getUnitId().compareTo(o.getUnitId());
-	}
-	@Override
-	public boolean test(Unit t) {
-		
-		int result = this.compareTo(t);
-		if (result == 0) {
-			
-			return true;
-		}
-		return false;
-	}
+	
 	
 	
 

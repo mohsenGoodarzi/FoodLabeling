@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +23,15 @@ class UnitDaoTests {
 	@Autowired
 	private UnitDao unitDao;
 	
-	@BeforeEach
-	void setup() {
-		unitDao.insert("Test Unit 1", 1.3);
-		unitDao.insert("Test Unit 2", 1.4);
-		
+	@Test
+	void aInsert() {
+		int unitOne = unitDao.insert("Test Unit 1", 1.3);
+		int unitTwo = unitDao.insert("Test Unit 2", 1.4);
+		assertEquals(1, unitOne);
+		assertEquals(1, unitTwo);
 	}
 	@Test
-	void getAllUnitsTest() {
+	void bGetAllUnitsTest() {
 		List<Unit> got = unitDao.getAllUnits();
 		List<Unit> expected = new ArrayList<Unit>();
 		expected.add(new Unit("Test Unit 1",1.3));
@@ -41,18 +40,24 @@ class UnitDaoTests {
 	}
 	
 	@Test
-	void getUnitTest() {
+	void cGetUnitTest() {
 		Unit got = unitDao.getUnit("Test Unit 1");
 		Unit expected = new Unit("Test Unit 1",1.3);
-		assertEquals(expected, got);
+		assertEquals(expected, got );
 	}
 	
-	
 	@Test
-	void remove() {
-		
-		unitDao.delete("Test Unit");
-		Unit unit = unitDao.getUnit("Test Unit");
+	void dUpdateTest() {
+		Unit expected = new Unit("Test Unit 1",1.5);
+		unitDao.update("Test Unit 1",1.5);
+		Unit unit = unitDao.getUnit("Test Unit 1");
+		assertEquals(expected, unit);
+	}
+
+	@Test
+	void eRemoveTest() {
+		unitDao.delete("Test Unit 2");
+		Unit unit = unitDao.getUnit("Test Unit 2");
 		assertEquals(null, unit);
 	}
 
