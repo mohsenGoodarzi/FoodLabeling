@@ -16,25 +16,25 @@ import com.nutrition.information.entities.Food;
 @Persistent
 public interface FoodDao extends JpaRepository<Food,String>{
 	
-	@Query(value="from food",nativeQuery = true)
+	@Query(value="from Food")
 	public List<Food> getAllFoods();
 	
-	@Query(value ="from food where food_id = :foodId",nativeQuery = true)
+	@Query(value ="from Food where foodId = :foodId")
 	public Food getFood(@Param("foodId") String foodId);
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into food (food_id,dish_type_id,cuisine_type_id,food_type)values(:foodId,:dishTypeId,:cuisineTypeId,:foodType)",nativeQuery = true)
+	@Query(value = "insert into Food (foodId,dishTypeId,cuisineTypeId,foodType)values(:foodId,:dishTypeId,:cuisineTypeId,:foodType)",nativeQuery = true)
 	public int insert(@Param("foodId")String foodId, @Param("dishTypeId")String dishTypeId,@Param("cuisineTypeId")String cuisineTypeId,@Param("foodType") String foodType);
 	
 	@Transactional
 	@Modifying
-	@Query(value="update food set dish_type_id = :dishTypeId, cuisine_type_id = :cuisineTypeId,food_type = :foodType  where food_id = :foodId", nativeQuery = true)
+	@Query(value="update Food set dishTypeId = :dishTypeId, cuisineTypeId = :cuisineTypeId,foodType = :foodType  where foodId = :foodId", nativeQuery = true)
 	public int update(@Param("foodId")String foodId, @Param("dishTypeId")String dishTypeId,@Param("cuisineTypeId")String cuisineTypeId,@Param("foodType") String foodType);  
 	
 	@Transactional
 	@Modifying
-	@Query(value = "delete from food where food_id = :foodId", nativeQuery = true)
+	@Query(value = "delete from Food where foodId = :foodId", nativeQuery = true)
 	public int delete(@Param("foodId") String foodId);
 	
 }

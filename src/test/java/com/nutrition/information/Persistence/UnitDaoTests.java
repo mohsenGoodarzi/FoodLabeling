@@ -24,30 +24,30 @@ class UnitDaoTests {
 	private UnitDao unitDao;
 	
 	@Test
-	void aInsert() {
+	void addTest() {
 		int unitOne = unitDao.insert("Test Unit 1", 1.3);
 		int unitTwo = unitDao.insert("Test Unit 2", 1.4);
 		assertEquals(1, unitOne);
 		assertEquals(1, unitTwo);
 	}
 	@Test
-	void bGetAllUnitsTest() {
+	void getAllTest() {
 		List<Unit> got = unitDao.getAllUnits();
 		List<Unit> expected = new ArrayList<Unit>();
-		expected.add(new Unit("Test Unit 1",1.3));
+		expected.add(new Unit("Test Unit 1",1.5));
 		expected.add(new Unit("Test Unit 2", 1.4));
 		assertArrayEquals(expected.toArray(), got.toArray());
 	}
 	
 	@Test
-	void cGetUnitTest() {
+	void getTest() {
 		Unit got = unitDao.getUnit("Test Unit 1");
-		Unit expected = new Unit("Test Unit 1",1.3);
+		Unit expected = new Unit("Test Unit 1",1.5);
 		assertEquals(expected, got );
 	}
 	
 	@Test
-	void dUpdateTest() {
+	void updateTest() {
 		Unit expected = new Unit("Test Unit 1",1.5);
 		unitDao.update("Test Unit 1",1.5);
 		Unit unit = unitDao.getUnit("Test Unit 1");
@@ -55,10 +55,13 @@ class UnitDaoTests {
 	}
 
 	@Test
-	void eRemoveTest() {
+	void removeTest() {
+		unitDao.delete("Test Unit 1");
 		unitDao.delete("Test Unit 2");
-		Unit unit = unitDao.getUnit("Test Unit 2");
-		assertEquals(null, unit);
+		Unit unitOne = unitDao.getUnit("Test Unit 1");
+		Unit unitTwo = unitDao.getUnit("Test Unit 2");
+		assertEquals(null, unitOne);
+		assertEquals(null, unitTwo);
 	}
 
 }

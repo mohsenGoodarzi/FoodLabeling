@@ -9,4 +9,10 @@ public class LoginController {
 	public String login() {
 		return "/Login/login.html";
 	}
+	
+	@GetMapping("/AccessDenied")
+	public String accessDenied() {
+		
+		return "/errors/access-denied.html";
+	}
 }

@@ -1,7 +1,5 @@
 package com.nutrition.information.entities;
 
-import java.util.function.Predicate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

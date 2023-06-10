@@ -29,7 +29,7 @@ class CuisineTypeDaoTests {
 	private CuisineTypeDao cuisineTypeDao;
 	
 	@Test
-	void aInsertCuisineTypeTest() {
+	void addTest() {
 		int rowsAffectedTurkish = cuisineTypeDao.insert("Turkish", "Turkish");
 		int rowsAffectedArabic = cuisineTypeDao.insert("Arabic", "Arabic");
 		
@@ -38,18 +38,18 @@ class CuisineTypeDaoTests {
 	}
 	
 	@Test
-	void bGetCuisineTypeTest() {
+	void getTest() {
 	
 		CuisineType got = cuisineTypeDao.getCuisineType("Turkish");
 		
 		CuisineType parent = new CuisineType();
-		parent.setCuisineTypeId("Turkish");
+		parent.setCuisineTypeId("Arabic");
 		CuisineType expected = new CuisineType("Turkish",parent);
 		assertEquals(expected, got);
 		
 	}
 	@Test
-	void cGetAllCuisineTypeTest() {
+	void getAllTest() {
 		List<CuisineType> got = cuisineTypeDao.getAllCuisineTypes();
 		List <CuisineType> expected = new ArrayList<>();
 		
@@ -59,7 +59,7 @@ class CuisineTypeDaoTests {
 		expected.add(arabic);
 		
 		CuisineType parentTurkish = new CuisineType();
-		parentTurkish.setCuisineTypeId("Turkish");
+		parentTurkish.setCuisineTypeId("Arabic");
 		CuisineType turkish = new CuisineType("Turkish", parentTurkish);
 		expected.add(turkish);
 		
@@ -69,7 +69,7 @@ class CuisineTypeDaoTests {
 	}
 	
 	@Test
-	void dUpdateCuisineTypeTest() {
+	void updateTest() {
 		CuisineType parent = new CuisineType();
 		parent.setCuisineTypeId("Arabic");
 		int rowsAffected = cuisineTypeDao.update("Turkish", parent);
@@ -78,9 +78,12 @@ class CuisineTypeDaoTests {
 	}
 
 	@Test
-	void eRemoveCuisineTypeTest() {
-		int got = cuisineTypeDao.delete("Turkish");
-		assertEquals(1, got);
+	void removeTest() {
+		int removedTurkish = cuisineTypeDao.delete("Turkish");
+		cuisineTypeDao.update("Arabic", null);
+		int removedArabic = cuisineTypeDao.delete("Arabic");
+		assertEquals(1, removedTurkish);
+		assertEquals(1, removedArabic);
 	}
 
 }

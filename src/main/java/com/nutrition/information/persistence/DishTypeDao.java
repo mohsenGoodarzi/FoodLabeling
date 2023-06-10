@@ -15,25 +15,25 @@ import com.nutrition.information.entities.DishType;
 @Persistent
 public interface DishTypeDao extends JpaRepository<DishType,String>{
 	
-	@Query(value="from dish_type",nativeQuery = true)
+	@Query(value="from DishType")
 	public List<DishType> getAllDishTypes();
 	
-	@Query(value="from dish_type where dish_type_id = :dish_type_id",nativeQuery = true)
-	public DishType getDishType(@Param("dish_type_id") String dishTypeId);
+	@Query(value="from DishType where dishTypeId = :dishTypeId")
+	public DishType getDishType(@Param("dishTypeId") String dishTypeId);
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into dish_type (dish_type_id,member)values(:dishTypeId,:member)",nativeQuery = true)
+	@Query(value = "insert into DishType (dishTypeId,member)values(:dishTypeId,:member)",nativeQuery = true)
 	public int insert(@Param("dishTypeId")String dishTypeId, @Param("member")String member);
 	
 	@Transactional
 	@Modifying
-	@Query(value="update dish_type set member = :member where dish_type_id = :dishTypeId", nativeQuery = true)
+	@Query(value="update DishType set member = :member where dishTypeId = :dishTypeId", nativeQuery = true)
 	public int update(@Param("dishTypeId") String dishTypeId,@Param("member") String member);  
 	
 	@Transactional
 	@Modifying
-	@Query(value = "delete from dish_type where dish_type_id = :dishTypeId", nativeQuery = true)
+	@Query(value = "delete from DishType where dishTypeId = :dishTypeId", nativeQuery = true)
 	public int delete(@Param("dishTypeId") String dishTypeId);
 
 }

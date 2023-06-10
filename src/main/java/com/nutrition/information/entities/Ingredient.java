@@ -9,21 +9,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name ="ingredient")
+@Table(name ="Ingredient")
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class Ingredient {
 	
 	@Getter
 	@Setter
 	@Id
-	@Column(name="ingredient_id")
+	@Column(name="ingredientId")
 	private String ingredientId;
 	
 	@Getter
@@ -64,13 +66,6 @@ public class Ingredient {
 	@JoinColumn(columnDefinition = "nvarchar(100) default 'Not Specified'", name="warning_id")
 	private Warning warningId;
 	
-	public Ingredient(String ingredientId,IngredientType ingredientType, Unit unitId, float amount, float fat, float carb, float protein, float calory, Warning warningId) {
-		
-		this.ingredientId = ingredientId;
-		this.ingredientType = ingredientType;
-		this.unitId = unitId;
-		this.amount = amount;
-		
-	}
+	
 
 }

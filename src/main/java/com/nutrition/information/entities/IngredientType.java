@@ -1,5 +1,7 @@
 package com.nutrition.information.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,16 +17,29 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="ingredient_type")
-@EqualsAndHashCode
+@Table(name="IngredientType")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class IngredientType implements Comparable<IngredientType> {
+	@Override
+	public int hashCode() {
+		return Objects.hash(ingredientTypeId, member.getIngredientTypeId());
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IngredientType other = (IngredientType) obj;
+		return Objects.equals(ingredientTypeId, other.ingredientTypeId) && Objects.equals(member.getIngredientTypeId(), other.member.getIngredientTypeId());
+	}
 	@Getter
 	@Setter
 	@Id
-	@Column(name="ingredient_type_id")
+	@Column(name="ingredientTypeId")
 	private String ingredientTypeId;
 	@Getter
 	@Setter
@@ -35,6 +50,10 @@ public class IngredientType implements Comparable<IngredientType> {
 	public int compareTo(IngredientType o) {
 		
 		return this.getIngredientTypeId().compareTo(o.getIngredientTypeId());
+	}
+	@Override
+	public String toString() {
+		return "IngredientType [ingredientTypeId=" + ingredientTypeId + ", member=" + member.ingredientTypeId + "]";
 	}
 	
 

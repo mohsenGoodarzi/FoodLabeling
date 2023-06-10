@@ -1,19 +1,16 @@
 package com.nutrition.information.persistence;
 
 
+import org.springframework.data.annotation.Persistent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import com.nutrition.information.entities.FoodIngredient;
 import com.nutrition.information.entities.FoodIngredientId;
-
 import jakarta.transaction.Transactional;
-import lombok.experimental.PackagePrivate;
 
-@Repository
+@Persistent
 public interface FoodIngredientDao extends JpaRepository<FoodIngredient,FoodIngredientId> {
 
 	@Transactional
