@@ -19,31 +19,31 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table
-public class CuisineType{
-	
+public class CuisineType {
+
 	@Getter
 	@Setter
 	@Id
-	@Column(name="cuisineTypeId")
+	@Column(name = "cuisineTypeId")
 	private String cuisineTypeId;
+
 	@Getter
 	@Setter
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="member", nullable=true)
+	@JoinColumn(name = "member", nullable = true)
 	private CuisineType member;
-	
-	// This class is self referenced to itself. It requires manual implementation of hashCode, equals and toString
+
+	// This class is self referenced to itself. It requires manual implementation of
+	// hashCode, equals and toString
 	@Override
 	public String toString() {
 		return "CuisineType [cuisineTypeId=" + cuisineTypeId + ", member=" + member.getCuisineTypeId() + "]";
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.getCuisineTypeId(), member.getCuisineTypeId());
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -54,6 +54,8 @@ public class CuisineType{
 		if (getClass() != obj.getClass())
 			return false;
 		CuisineType other = (CuisineType) obj;
-		return Objects.equals(cuisineTypeId, other.cuisineTypeId) && Objects.equals(member.getCuisineTypeId(), other.member.getCuisineTypeId());
+		return Objects.equals(cuisineTypeId, other.cuisineTypeId)
+				&& Objects.equals(member.getCuisineTypeId(), other.member.getCuisineTypeId());
 	}
+
 }

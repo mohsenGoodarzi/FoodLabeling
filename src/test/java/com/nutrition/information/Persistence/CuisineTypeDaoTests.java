@@ -1,6 +1,5 @@
 package com.nutrition.information.Persistence;
 
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,60 +20,59 @@ import com.nutrition.information.persistence.CuisineTypeDao;
 
 @RunWith(SpringRunner.class)
 @ImportAutoConfiguration
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 @TestInstance(Lifecycle.PER_CLASS)
 class CuisineTypeDaoTests {
 
 	@Autowired
 	private CuisineTypeDao cuisineTypeDao;
-	
+
 	@Test
 	void addTest() {
 		int rowsAffectedTurkish = cuisineTypeDao.insert("Turkish", "Turkish");
 		int rowsAffectedArabic = cuisineTypeDao.insert("Arabic", "Arabic");
-		
-		assertEquals(1,rowsAffectedTurkish);
-		assertEquals(1,rowsAffectedArabic);
+
+		assertEquals(1, rowsAffectedTurkish);
+		assertEquals(1, rowsAffectedArabic);
 	}
-	
+
 	@Test
 	void getTest() {
-	
+
 		CuisineType got = cuisineTypeDao.getCuisineType("Turkish");
-		
+
 		CuisineType parent = new CuisineType();
 		parent.setCuisineTypeId("Arabic");
-		CuisineType expected = new CuisineType("Turkish",parent);
+		CuisineType expected = new CuisineType("Turkish", parent);
 		assertEquals(expected, got);
-		
+
 	}
+
 	@Test
 	void getAllTest() {
 		List<CuisineType> got = cuisineTypeDao.getAllCuisineTypes();
-		List <CuisineType> expected = new ArrayList<>();
-		
+		List<CuisineType> expected = new ArrayList<>();
+
 		CuisineType parentArabic = new CuisineType();
 		parentArabic.setCuisineTypeId("Arabic");
 		CuisineType arabic = new CuisineType("Arabic", parentArabic);
 		expected.add(arabic);
-		
+
 		CuisineType parentTurkish = new CuisineType();
 		parentTurkish.setCuisineTypeId("Arabic");
 		CuisineType turkish = new CuisineType("Turkish", parentTurkish);
 		expected.add(turkish);
-		
-		
-		
+
 		assertArrayEquals(expected.toArray(), got.toArray());
 	}
-	
+
 	@Test
 	void updateTest() {
 		CuisineType parent = new CuisineType();
 		parent.setCuisineTypeId("Arabic");
 		int rowsAffected = cuisineTypeDao.update("Turkish", parent);
-		assertEquals(1,rowsAffected);
-		
+		assertEquals(1, rowsAffected);
+
 	}
 
 	@Test

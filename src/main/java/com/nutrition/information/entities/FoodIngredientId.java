@@ -15,17 +15,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class FoodIngredientId implements Serializable{
+public class FoodIngredientId implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	@Getter
 	@Setter
-	@ManyToOne(cascade = CascadeType.ALL,  targetEntity = Food.class)
-	@JoinColumn(name="food_id",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Food.class)
+	@JoinColumn(name = "food_id", columnDefinition = "VARCHAR(200) default 'Not Specified'", nullable = false)
 	private Food foodId;
+
 	@Getter
 	@Setter
-	@ManyToOne(cascade = CascadeType.ALL,  targetEntity = Ingredient.class)
-	@JoinColumn(name="ingredient_id",columnDefinition="VARCHAR(200) default 'Not Specified'" ,nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Ingredient.class)
+	@JoinColumn(name = "ingredient_id", columnDefinition = "VARCHAR(200) default 'Not Specified'", nullable = false)
 	private Ingredient ingredientId;
-	
+
 }

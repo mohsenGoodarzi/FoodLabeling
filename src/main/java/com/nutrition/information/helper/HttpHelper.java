@@ -6,9 +6,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.nutrition.information.entities.ErrorView;
 
 public class HttpHelper {
-	public ModelAndView redirect(ErrorView error,ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("error",error);
+
+	public ModelAndView redirect(ErrorView error, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("error", error);
 		modelAndView.setViewName("redirect:/Error");
-		return modelAndView ;
+		return modelAndView;
 	}
+
 }

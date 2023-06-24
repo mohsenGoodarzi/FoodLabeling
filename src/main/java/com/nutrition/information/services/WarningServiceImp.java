@@ -15,43 +15,43 @@ public class WarningServiceImp implements WarningService {
 
 	@Autowired
 	private WarningDao warningDao;
+
 	@Override
 	public List<Warning> getAll() {
 		return warningDao.findAll();
 	}
 
 	@Override
-	public Warning getWarning(String warningId)  {
-		
-		 Optional<Warning> warning = warningDao.findById(warningId);
-		 if (warning.isEmpty()) {
-			 return null;
-		 }
-		 return warning.get();
+	public Warning getWarning(String warningId) {
+
+		Optional<Warning> warning = warningDao.findById(warningId);
+		if (warning.isEmpty()) {
+			return null;
+		}
+		return warning.get();
 	}
 
 	@Override
 	public int add(Warning warning) throws SQLException {
-		int result =0;
-		if (warning != null ) {
-			result = warningDao.insert(warning.getWarningId(),warning.getWarningType(), warning.getMessage());
-		}	
+		int result = 0;
+		if (warning != null) {
+			result = warningDao.insert(warning.getWarningId(), warning.getWarningType(), warning.getMessage());
+		}
 		return result;
 	}
 
 	@Override
-	public int edit(Warning warning) throws SQLException{
-		int result = warningDao.update(warning.getWarningId(),warning.getWarningType(),warning.getMessage());
+	public int edit(Warning warning) throws SQLException {
+		int result = warningDao.update(warning.getWarningId(), warning.getWarningType(), warning.getMessage());
 		return result;
-		
+
 	}
 
 	@Override
 	public int remove(String warningId) {
 		int result = warningDao.delete(warningId);
 		return result;
-		
-		
+
 	}
 
 }

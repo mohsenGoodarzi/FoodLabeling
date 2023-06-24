@@ -1,6 +1,5 @@
 package com.nutrition.information.Persistence;
 
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,58 +19,59 @@ import com.nutrition.information.persistence.DishTypeDao;
 
 @RunWith(SpringRunner.class)
 @ImportAutoConfiguration
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 @TestInstance(Lifecycle.PER_CLASS)
 class DishTypeDaoTests {
 
 	@Autowired
 	private DishTypeDao dishTypeDao;
-	
+
 	@Test
 	void addTest() {
-		
+
 		int rowsAffectedMain = dishTypeDao.insert("Main", "Main");
-		
+
 		int rowsAffectedSalad = dishTypeDao.insert("Salad", "Salad");
-		
-		assertEquals(1,rowsAffectedMain);
-		assertEquals(1,rowsAffectedSalad);
+
+		assertEquals(1, rowsAffectedMain);
+		assertEquals(1, rowsAffectedSalad);
 	}
-	
+
 	@Test
 	void getTest() {
-	
+
 		DishType got = dishTypeDao.getDishType("Main");
 		DishType parent = new DishType();
 		parent.setDishTypeId("Salad");
-		DishType expected = new DishType("Main",parent);
+		DishType expected = new DishType("Main", parent);
 		assertEquals(expected, got, "Expected is not same is got");
-		
+
 	}
+
 	@Test
 	void getAllTest() {
 		List<DishType> got = dishTypeDao.getAllDishTypes();
-		List <DishType> expected = new ArrayList<>();
-		
+		List<DishType> expected = new ArrayList<>();
+
 		DishType parentMain = new DishType();
 		parentMain.setDishTypeId("Salad");
 		DishType main = new DishType("Main", parentMain);
 		expected.add(main);
-		
+
 		DishType parentSalad = new DishType();
 		parentSalad.setDishTypeId("Salad");
 		DishType salad = new DishType("Salad", parentSalad);
 		expected.add(salad);
-		
+
 		assertArrayEquals(expected.toArray(), got.toArray());
 	}
-	
+
 	@Test
 	void updateTest() {
-		
+
 		int rowsAffected = dishTypeDao.update("Main", "Salad");
-		assertEquals(1,rowsAffected);
-		
+		assertEquals(1, rowsAffected);
+
 	}
 
 	@Test

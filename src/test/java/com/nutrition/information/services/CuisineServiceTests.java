@@ -23,9 +23,12 @@ import com.nutrition.information.persistence.CuisineTypeDao;
 @SpringBootTest(classes = Application.class)
 @TestInstance(Lifecycle.PER_CLASS)
 public class CuisineServiceTests {
+
 	private final int One_ROW_AFFECTED = 1;
+
 	@Mock
 	private CuisineTypeDao cuisineTypeDao;
+
 	@Autowired
 	private CuisineTypeService cuisineTypeService;
 
@@ -89,4 +92,5 @@ public class CuisineServiceTests {
 		assertEquals(1, resultTurkish);
 		assertEquals(1, resultArabic);
 	}
+
 }

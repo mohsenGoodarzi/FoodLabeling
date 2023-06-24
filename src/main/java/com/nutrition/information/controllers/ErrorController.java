@@ -11,9 +11,9 @@ public class ErrorController {
 
 	@GetMapping("/Error")
 
-	public String error(Model model,@ModelAttribute ErrorView error) {
+	public String error(Model model, @ModelAttribute ErrorView error) {
 		model.addAttribute("error", error);
-	return "/errors/error.html";
-} 
-	
+		return "/errors/error.html";
+	}
+
 }

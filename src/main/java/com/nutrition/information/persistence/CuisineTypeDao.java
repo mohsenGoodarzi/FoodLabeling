@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.nutrition.information.persistence;
 
@@ -15,27 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nutrition.information.entities.CuisineType;
 
 @Persistent
-public interface CuisineTypeDao extends JpaRepository<CuisineType, String>{
-	
-	
-	
-	@Query(value="from CuisineType")
+public interface CuisineTypeDao extends JpaRepository<CuisineType, String> {
+
+	@Query(value = "from CuisineType")
 	public List<CuisineType> getAllCuisineTypes();
-	
-	@Query(value="from CuisineType where cuisineTypeId = :cuisineTypeId")
+
+	@Query(value = "from CuisineType where cuisineTypeId = :cuisineTypeId")
 	public CuisineType getCuisineType(@Param("cuisineTypeId") String cuisineTypeId);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "insert into CuisineType(cuisineTypeId,member)values(:cuisineTypeId,:member)", nativeQuery = true)
-	// member has to be String in insert operation 
-	public int insert(@Param("cuisineTypeId")String cuisineTypeId, @Param("member")String member);
-	
+	// member has to be String in insert operation
+	public int insert(@Param("cuisineTypeId") String cuisineTypeId, @Param("member") String member);
+
 	@Transactional
 	@Modifying
-	@Query(value="update CuisineType set member = :member where cuisineTypeId = :cuisineTypeId")
-	public int update(@Param("cuisineTypeId") String cuisineTypeId,@Param("member") CuisineType member);  
-	
+	@Query(value = "update CuisineType set member = :member where cuisineTypeId = :cuisineTypeId")
+	public int update(@Param("cuisineTypeId") String cuisineTypeId, @Param("member") CuisineType member);
+
 	@Transactional
 	@Modifying
 	@Query(value = "delete from CuisineType where cuisineTypeId = :cuisineTypeId", nativeQuery = true)

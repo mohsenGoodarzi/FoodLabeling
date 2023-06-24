@@ -19,9 +19,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ImportAutoConfiguration
 @SpringBootTest(classes = Application.class)
 class UnitServiceTests {
+
 	private final int One_ROW_AFFECTED = 1;
+
 	@Mock
 	private UnitDao unitDao;
+
 	@Autowired
 	private UnitService unitService;
 
@@ -69,4 +72,5 @@ class UnitServiceTests {
 		assertEquals(One_ROW_AFFECTED, resultUnitOne);
 		assertEquals(One_ROW_AFFECTED, resdultUnitTwo);
 	}
+
 }

@@ -1,6 +1,5 @@
 package com.nutrition.information.persistence;
 
-
 import java.util.List;
 
 import org.springframework.data.annotation.Persistent;
@@ -14,29 +13,30 @@ import com.nutrition.information.entities.Warning;
 
 @Persistent
 public interface WarningDao extends JpaRepository<Warning, String> {
-	
-	
-	@Query(value = "from warning where warning_id = :warningId",nativeQuery = true)
+
+	@Query(value = "from warning where warning_id = :warningId", nativeQuery = true)
 	public Warning getWarning(String warningId);
-	
-	@Query(value="from warning", nativeQuery = true)
+
+	@Query(value = "from warning", nativeQuery = true)
 	public List<Warning> getAllWarnings();
-	
-	@Transactional
-	@Modifying
-	@Query(value="Insert into warning(warning_id,warning_type, message) values(:warningId, :warningType, :message)",nativeQuery=true )
-	public int insert(@Param("warningId")String warningId,@Param("warningType") String warningType,@Param("message") String message); 
-	
 
 	@Transactional
 	@Modifying
-	@Query(value="update warning set warning_type = :warningType, message = :message where warning_id= :warningId",nativeQuery=true )
-	public int update(@Param("warningId")String warningId,@Param("warningType") String warningType,@Param("message") String message); 
-
+	@Query(value = "Insert into warning(warning_id,warning_type, message) values(:warningId, :warningType, :message)",
+			nativeQuery = true)
+	public int insert(@Param("warningId") String warningId, @Param("warningType") String warningType,
+			@Param("message") String message);
 
 	@Transactional
 	@Modifying
-	@Query(value="delete from warning where warning_id = :warningId",nativeQuery=true )
-	public int delete(@Param("warningId")String warningId); 
+	@Query(value = "update warning set warning_type = :warningType, message = :message where warning_id= :warningId",
+			nativeQuery = true)
+	public int update(@Param("warningId") String warningId, @Param("warningType") String warningType,
+			@Param("message") String message);
+
+	@Transactional
+	@Modifying
+	@Query(value = "delete from warning where warning_id = :warningId", nativeQuery = true)
+	public int delete(@Param("warningId") String warningId);
 
 }

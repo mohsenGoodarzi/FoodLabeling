@@ -24,16 +24,17 @@ public class FoodServiceImpl implements FoodService {
 
 	public int add(Food food) throws Exception {
 
-		return foodDao.insert(food.getFoodId(), food.getDishType().getDishTypeId(), food.getCuisineType().getCuisineTypeId(),
-				food.getFoodId());
+		return foodDao.insert(food.getFoodId(), food.getDishType().getDishTypeId(),
+				food.getCuisineType().getCuisineTypeId(), food.getFoodId());
 	}
 
-	public int edit(Food food) throws Exception{
-		return foodDao.update(food.getFoodId(), food.getDishType().getDishTypeId(), food.getCuisineType().getCuisineTypeId(),
-				food.getFoodId());
+	public int edit(Food food) throws Exception {
+		return foodDao.update(food.getFoodId(), food.getDishType().getDishTypeId(),
+				food.getCuisineType().getCuisineTypeId(), food.getFoodId());
 	}
 
 	public int remove(String foodId) throws Exception {
 		return foodDao.delete(foodId);
 	}
+
 }

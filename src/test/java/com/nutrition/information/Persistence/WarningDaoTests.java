@@ -12,7 +12,7 @@ import com.nutrition.information.app.Application;
 
 @RunWith(SpringRunner.class)
 @ImportAutoConfiguration
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 class WarningDaoTests {
 
 	@Test

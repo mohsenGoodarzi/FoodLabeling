@@ -38,7 +38,8 @@ public class DishTypeController {
 		return modelAndView;
 	}
 
-// When there is a self referencing, @ModelAttribute can help with attribute as well. No need to go for full model
+	// When there is a self referencing, @ModelAttribute can help with attribute as well.
+	// No need to go for full model
 	@PostMapping("Create")
 	public ModelAndView create(@ModelAttribute("dishTypeId") String dishTypeId, @ModelAttribute("member") String member,
 			RedirectAttributes redirectAttributes) {
@@ -48,7 +49,8 @@ public class DishTypeController {
 
 		try {
 			dishTypeService.add(new DishType(dishTypeId, parent));
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			redirectAttributes.addFlashAttribute("error", redirectAttributes);
 			modelAndView.setViewName("redirect:/Error");
 			return modelAndView;
@@ -63,30 +65,33 @@ public class DishTypeController {
 		DishType dishType = dishTypeService.getDishType(dishTypeId);
 
 		if (dishType == null) {
-			redirectAttributes.addFlashAttribute("errorView", new ErrorView(404, "Not Found", "The requested resource could not be found but may be available in the future."));
+			redirectAttributes.addFlashAttribute("errorView", new ErrorView(404, "Not Found",
+					"The requested resource could not be found but may be available in the future."));
 			modelAndView.setViewName("redirect:/Error");
 			return modelAndView;
 		}
 		try {
 			dishTypeService.edit(dishType);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return modelAndView;
 	}
+
 	@PostMapping("Edit")
 	public ModelAndView edit(@ModelAttribute("dishType") DishType dishType, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 			dishTypeService.edit(dishType);
-		} catch (Exception e) {
-			//redirectAttributes.addFlashAttribute("errorView", new ErrorView("","",""));
+		}
+		catch (Exception e) {
+			// redirectAttributes.addFlashAttribute("errorView", new ErrorView("","",""));
 			modelAndView.setViewName("redirect:/Error");
 			return modelAndView;
 		}
 		modelAndView.setViewName("/DishTypes/All");
 		return modelAndView;
 	}
-	
-	
+
 }

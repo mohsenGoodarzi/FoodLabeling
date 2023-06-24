@@ -12,24 +12,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="unit")
+@Table(name = "unit")
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Unit {
-	
+
 	@Getter
 	@Setter
 	@Id
-	@Column(name="unit_id")
+	@Column(name = "unit_id")
 	private String unitId;
+
 	@Getter
 	@Setter
-	@Column(name="to_gram")
+	@Column(name = "to_gram")
 	private double toGram;
-	
-	
-	
 
 }

@@ -17,18 +17,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Warning implements Comparable<Warning> {
-	
+
 	@Getter
 	@Setter
 	@Id
-	@Column(name="warning_id", columnDefinition = "nvarchar(100)")
+	@Column(name = "warning_id", columnDefinition = "nvarchar(100)")
 	private String warningId;
-	
+
 	@Getter
 	@Setter
-	@Column(columnDefinition = "nvarchar(100) not null check (warning_type in ('Not Specified' ,'Allergic','Children Attention'))", name = "warning_type")
+	@Column(columnDefinition = "nvarchar(100) not null check (warning_type in ('Not Specified' ,'Allergic','Children Attention'))",
+			name = "warning_type")
 	private String warningType;
-	
+
 	@Getter
 	@Setter
 	@Column(columnDefinition = "nvarchar (6000)")
@@ -36,7 +37,8 @@ public class Warning implements Comparable<Warning> {
 
 	@Override
 	public int compareTo(Warning o) {
-		
+
 		return this.getWarningId().compareTo(o.getWarningId());
 	}
+
 }
